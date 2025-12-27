@@ -1,82 +1,57 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Mario & Danixa</title>
-
-  <!-- Ícono pestaña -->
-  <link rel="icon" href="data:image/svg+xml,
-  <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'>
-    <text y='.9em' font-size='90'>💍</text>
-  </svg>">
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- Fuentes -->
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
-
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ernesto & Danixa 💍</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E💍%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="style.css" />
 </head>
-
 <body>
 
-  <div class="overlay"></div>
-
-  <!-- ESCENAS CINEMATOGRÁFICAS -->
-  <div class="scene active">
-    <div class="domino-text">
-      <span>Mario</span>
-      <span>&</span>
-      <span>Danixa</span>
-      <small>Nos elegimos. Para siempre.</small>
-    </div>
-  </div>
-
-  <div class="scene">
-    <div class="scene-text">
-      Todo comenzó con un sí silencioso…
-    </div>
-  </div>
-
-  <div class="scene">
-    <div class="scene-text">
-      Y hoy queremos compartirlo contigo
-    </div>
-  </div>
-
-  <!-- INVITACIÓN -->
-  <main id="app" class="hidden">
-    <div class="couple">👰‍♀️🤵‍♂️</div>
-
-    <h1 class="title">Mario & Danixa</h1>
-    <p class="date">28 de Febrero</p>
-
-    <button id="nextBtn" class="btn">
-      Continuar ✨
-    </button>
-
-    <p id="finalText" class="final-text hidden">
-      Con la bendición de Dios y el amor que nos une,<br>
-      queremos invitarte a celebrar nuestro matrimonio.
-    </p>
-
-    <button id="confirmBtn" class="btn confirm hidden">
-      Confirmar asistencia 💬
-    </button>
-  </main>
-
-  <!-- CONTADOR -->
-  <div id="countdown" class="countdown bottom">
-    <div><span id="days">00</span><small>DÍAS</small></div>
-    <div><span id="hours">00</span><small>HORAS</small></div>
-    <div><span id="minutes">00</span><small>MIN</small></div>
-    <div><span id="seconds">00</span><small>SEG</small></div>
-  </div>
-
-  <!-- Música -->
-  <audio id="music" loop>
-    <source src="./cancion.mp3" type="audio/mpeg">
+  <!-- 🎵 Música -->
+  <audio id="music" autoplay loop muted playsinline>
+    <source src="musica.mp3" type="audio/mpeg">
   </audio>
+
+  <!-- ⏳ Contador -->
+  <div id="countdown">
+    <div class="time"><span id="days">0</span><small>DÍAS</small></div>
+    <div class="time"><span id="hours">0</span><small>HORAS</small></div>
+    <div class="time"><span id="minutes">0</span><small>MIN</small></div>
+    <div class="time"><span id="seconds">0</span><small>SEG</small></div>
+  </div>
+
+  <!-- 🎬 Escenas iniciales -->
+  <div class="scene active">
+    <h1>Dos caminos.<br>Una decisión.<br>Para siempre.</h1>
+  </div>
+
+  <div class="scene">
+    <h1>Ernesto<br>&<br>Danixa</h1>
+    <p>Nos elegimos. Para siempre.</p>
+  </div>
+
+  <div class="scene">
+    <p>Todo comenzó con un sí silencioso…</p>
+  </div>
+
+  <div class="scene">
+    <p>Y hoy queremos compartirlo contigo</p>
+  </div>
+
+  <!-- 💍 App principal -->
+  <div id="app" class="hidden">
+    <button id="nextBtn">Ver más</button>
+
+    <div id="finalText" class="hidden">
+      <h2>Con la bendición de Dios y el amor que nos une,<br>
+      queremos invitarte a celebrar nuestro matrimonio.</h2>
+      <p>Ernesto & Danixa</p>
+    </div>
+
+    <button id="confirmBtn" class="hidden">Confirmar asistencia</button>
+  </div>
 
   <script src="script.js"></script>
 </body>
