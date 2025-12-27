@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Mario & Danixa</title>
+
+  <!-- Ícono pestaña -->
+  <link rel="icon" href="data:image/svg+xml,
+  <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'>
+    <text y='.9em' font-size='90'>💍</text>
+  </svg>">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Fuentes -->
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div class="overlay"></div>
+
+  <!-- ESCENAS CINEMATOGRÁFICAS -->
+  <div class="scene active">
+    <div class="domino-text">
+      <span>Mario</span>
+      <span>&</span>
+      <span>Danixa</span>
+      <small>Nos elegimos. Para siempre.</small>
+    </div>
+  </div>
+
+  <div class="scene">
+    <div class="scene-text">
+      Todo comenzó con un sí silencioso…
+    </div>
+  </div>
+
+  <div class="scene">
+    <div class="scene-text">
+      Y hoy queremos compartirlo contigo
+    </div>
+  </div>
+
+  <!-- INVITACIÓN -->
+  <main id="app" class="hidden">
+    <div class="couple">👰‍♀️🤵‍♂️</div>
+
+    <h1 class="title">Mario & Danixa</h1>
+    <p class="date">28 de Febrero</p>
+
+    <button id="nextBtn" class="btn">
+      Continuar ✨
+    </button>
+
+    <p id="finalText" class="final-text hidden">
+      Con la bendición de Dios y el amor que nos une,<br>
+      queremos invitarte a celebrar nuestro matrimonio.
+    </p>
+
+    <button id="confirmBtn" class="btn confirm hidden">
+      Confirmar asistencia 💬
+    </button>
+  </main>
+
+  <!-- CONTADOR -->
+  <div id="countdown" class="countdown bottom">
+    <div><span id="days">00</span><small>DÍAS</small></div>
+    <div><span id="hours">00</span><small>HORAS</small></div>
+    <div><span id="minutes">00</span><small>MIN</small></div>
+    <div><span id="seconds">00</span><small>SEG</small></div>
+  </div>
+
+  <!-- Música -->
+  <audio id="music" loop>
+    <source src="./cancion.mp3" type="audio/mpeg">
+  </audio>
+
+  <script src="script.js"></script>
+</body>
+</html>
