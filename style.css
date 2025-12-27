@@ -1,178 +1,109 @@
 * {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
+  font-family: "Georgia", serif;
 }
 
 body {
-  margin: 0;
   height: 100vh;
   background-size: cover;
   background-position: center;
-  font-family: system-ui;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  color: #fff;
+  text-align: center;
   overflow: hidden;
-  transition: background-image 1s ease-in-out;
 }
 
-.overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(0,0,0,0.45);
-  z-index: 1;
+/* ⏳ CONTADOR */
+#countdown {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 14px;
+  padding: 12px 18px;
+  background: rgba(180,180,180,0.25);
+  backdrop-filter: blur(12px);
+  border-radius: 18px;
+  z-index: 1000;
 }
 
-/* ESCENAS */
+#countdown .time span {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+#countdown .time small {
+  font-size: 0.6rem;
+  opacity: 0.8;
+}
+
+/* 🎬 ESCENAS */
 .scene {
   position: absolute;
   inset: 0;
-  display: none;
-  align-items: center;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
-  text-align: center;
-  z-index: 3;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1.2s ease;
 }
 
 .scene.active {
-  display: flex;
+  opacity: 1;
+  pointer-events: auto;
 }
 
-/* DOMINÓ */
-.domino-text {
-  font-family: 'Cinzel', serif;
-  color: white;
+.scene h1 {
+  font-size: 2.4rem;
+  margin-bottom: 10px;
 }
 
-.domino-text span {
-  display: block;
-  font-size: clamp(3rem, 10vw, 5rem);
-  opacity: 0;
-  animation: domino 0.8s ease forwards;
+.scene p {
+  font-size: 1.2rem;
 }
 
-.domino-text span:nth-child(1) { animation-delay: .2s; }
-.domino-text span:nth-child(2) { animation-delay: 1s; }
-.domino-text span:nth-child(3) { animation-delay: 1.8s; }
-
-.domino-text small {
-  display: block;
-  margin-top: 25px;
-  font-size: clamp(1.2rem, 4vw, 1.8rem);
-  letter-spacing: 2px;
-  opacity: 0;
-  animation: fadeUp 1.2s ease forwards;
-  animation-delay: 2.6s;
-}
-
-@keyframes domino {
-  from { opacity: 0; transform: rotateX(90deg); }
-  to { opacity: 1; transform: rotateX(0); }
-}
-
-/* ESCENA TEXTO */
-.scene-text {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(2rem, 6vw, 3rem);
-  color: white;
-  opacity: 0;
-  animation: fadeUp 1.5s ease forwards;
-}
-
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(15px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* INVITACIÓN */
+/* 💍 APP */
 #app {
-  position: relative;
-  z-index: 2;
-  text-align: center;
-  color: white;
-  padding: 20px;
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .hidden {
   display: none;
 }
 
-.couple {
-  font-size: 2.2rem;
-  margin-bottom: 8px;
-}
-
-.title {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(2.4rem, 6vw, 3.2rem);
-}
-
-.date {
-  letter-spacing: 2px;
-  opacity: .85;
-  margin-bottom: 28px;
-}
-
-/* BOTONES */
-.btn {
-  width: 260px;
-  margin: 14px auto;
-  padding: 14px;
-  border-radius: 999px;
+button {
+  padding: 12px 28px;
+  border-radius: 30px;
   border: none;
   font-size: 1rem;
-  font-weight: 600;
-  background: #ff5fa2;
-  color: white;
   cursor: pointer;
+  margin-top: 20px;
 }
 
-.btn.confirm {
-  background: rgba(255,255,255,.18);
-  border: 1px solid rgba(255,255,255,.45);
+#finalText {
+  max-width: 80%;
+  margin: 30px 0;
 }
 
-/* TEXTO FINAL */
-.final-text {
-  margin-top: 35px;
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(1.15rem, 3.5vw, 1.6rem);
-  line-height: 1.7;
-  opacity: 0;
-  transition: opacity 1.5s ease;
+#finalText.show {
+  animation: fadeIn 2s ease forwards;
 }
 
-.final-text.show {
-  opacity: 1;
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-/* CONTADOR GRIS GLASS */
-.countdown.bottom {
-  position: fixed;
-  bottom: 18px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 14px;
-  z-index: 4;
-}
-
-.countdown.bottom div {
-  background: rgba(255,255,255,0.25);
-  backdrop-filter: blur(14px);
-  border-radius: 16px;
-  padding: 10px 16px;
-  min-width: 72px;
-  text-align: center;
-  color: #222;
-}
-
-.countdown span {
-  font-size: 1.4rem;
-  font-weight: 700;
-}
-
-.countdown small {
-  font-size: .65rem;
-  letter-spacing: 1px;
-  opacity: .75;
+@media (max-width: 480px) {
+  .scene h1 { font-size: 1.8rem; }
+  #countdown { top: 12px; }
 }
