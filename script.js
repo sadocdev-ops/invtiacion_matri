@@ -1,6 +1,3 @@
-/* =====================================================
-   CONFIGURACIÓN GENERAL
-===================================================== */
 let sceneIndex = 0;
 let bgIndex = 0;
 let musicStarted = false;
@@ -12,187 +9,93 @@ const finalText = document.getElementById("finalText");
 const confirmBtn = document.getElementById("confirmBtn");
 const music = document.getElementById("music");
 
-const backgrounds = [
-  "./img1.jpeg",
-  "./img2.jpeg",
-  "./img3.jpeg",
-  "./img4.jpeg"
-];
-
-/* =====================================================
-   FONDO INICIAL
-===================================================== */
+const backgrounds = ["img1.jpeg","img2.jpeg","img3.jpeg","img4.jpeg"];
 document.body.style.backgroundImage = `url("${backgrounds[0]}")`;
 
-/* =====================================================
-   PARTÍCULAS SUAVES ALREDEDOR DEL TEXTO
-===================================================== */
-function softExplosionAround(target, total = 35, duration = 2400) {
+/* ❤️🎈 Partículas alrededor del texto */
+function softExplosionAround(target, total = 30) {
   if (!target) return;
-
   const rect = target.getBoundingClientRect();
-  const margin = 40;
-  const symbols = ["❤️", "🎈"];
-  const particles = [];
+  const symbols = ["❤️","🎈"];
 
   for (let i = 0; i < total; i++) {
     const el = document.createElement("div");
-    el.innerText = symbols[Math.floor(Math.random() * symbols.length)];
-
-    const side = Math.floor(Math.random() * 4);
-    let x, y;
-
-    if (side === 0) {
-      x = rect.left + Math.random() * rect.width;
-      y = rect.top - margin;
-    } else if (side === 1) {
-      x = rect.left + Math.random() * rect.width;
-      y = rect.bottom + margin;
-    } else if (side === 2) {
-      x = rect.left - margin;
-      y = rect.top + Math.random() * rect.height;
-    } else {
-      x = rect.right + margin;
-      y = rect.top + Math.random() * rect.height;
-    }
-
+    el.innerText = symbols[Math.floor(Math.random()*2)];
     el.style.position = "fixed";
-    el.style.left = x + "px";
-    el.style.top = y + "px";
-    el.style.fontSize = Math.random() * 16 + 22 + "px";
-    el.style.opacity = "0";
+    el.style.left = rect.left + rect.width/2 + "px";
+    el.style.top = rect.top + rect.height/2 + "px";
+    el.style.fontSize = Math.random()*14+22+"px";
     el.style.pointerEvents = "none";
+    el.style.opacity = "1";
     el.style.zIndex = 9999;
 
-    const angle = Math.random() * Math.PI * 2;
-    const distance = Math.random() * 100 + 60;
-
-    particles.push({
-      el,
-      x: Math.cos(angle) * distance,
-      y: Math.sin(angle) * distance,
-      r: Math.random() * 180
-    });
-
     document.body.appendChild(el);
+
+    const angle = Math.random()*Math.PI*2;
+    const dist = Math.random()*120+60;
+
+    el.animate([
+      { transform:"translate(0,0)", opacity:1 },
+      { transform:`translate(${Math.cos(angle)*dist}px,${Math.sin(angle)*dist}px)`, opacity:0 }
+    ], { duration: 2200, easing:"ease-out" });
+
+    setTimeout(()=>el.remove(),2200);
   }
-
-  const start = performance.now();
-
-  function ease(t) {
-    return t < 0.5
-      ? 4 * t * t * t
-      : 1 - Math.pow(-2 * t + 2, 3) / 2;
-  }
-
-  function animate(now) {
-    const p = Math.min((now - start) / duration, 1);
-    const e = ease(p);
-
-    particles.forEach(o => {
-      o.el.style.opacity = e;
-      o.el.style.transform =
-        `translate(${o.x * e}px, ${o.y * e}px) rotate(${o.r * e}deg) scale(${0.9 + e * 0.4})`;
-    });
-
-    if (p < 1) {
-      requestAnimationFrame(animate);
-    } else {
-      particles.forEach(o => {
-        o.el.style.transition = "opacity 1s ease";
-        o.el.style.opacity = "0";
-        setTimeout(() => o.el.remove(), 1100);
-      });
-    }
-  }
-
-  requestAnimationFrame(animate);
 }
 
-/* =====================================================
-   CLICK GLOBAL — CONTROLADO
-===================================================== */
-document.addEventListener("click", (e) => {
-
-  /* PRIMER CLICK → SOLO MÚSICA */
-  if (!musicStarted) {
+/* 🖱️ CLICK GLOBAL */
+document.addEventListener("click", (e)=>{
+  if(!musicStarted){
     musicStarted = true;
-
-    if (music) {
-      music.muted = false;
-      music.volume = 0.45;
-      music.play().catch(() => {});
-    }
-
-    e.preventDefault();
+    music.muted = false;
+    music.volume = 0.45;
+    music.play().catch(()=>{});
     e.stopPropagation();
     return;
   }
 
-  /* DESDE EL SEGUNDO CLICK → EXPERIENCIA NORMAL */
-  handleExperienceClick();
-});
+  const active = document.querySelector(".scene.active");
+  softExplosionAround(active);
 
-/* =====================================================
-   LÓGICA DE AVANCE
-===================================================== */
-function handleExperienceClick() {
-  const activeScene = document.querySelector(".scene.active");
-  softExplosionAround(activeScene);
-
-  if (sceneIndex < scenes.length) {
+  if(sceneIndex < scenes.length-1){
     scenes[sceneIndex].classList.remove("active");
     sceneIndex++;
-
-    if (sceneIndex < scenes.length) {
-      scenes[sceneIndex].classList.add("active");
-    } else {
-      app.classList.remove("hidden");
-    }
+    scenes[sceneIndex].classList.add("active");
+  } else {
+    app.classList.remove("hidden");
   }
-}
+});
 
-/* =====================================================
-   BOTÓN SIGUIENTE (CAMBIO DE FONDO)
-===================================================== */
-nextBtn.addEventListener("click", (e) => {
+/* 🖼️ CAMBIO FONDO */
+nextBtn.addEventListener("click",(e)=>{
   e.stopPropagation();
-
-  softExplosionAround(nextBtn, 45);
-
   bgIndex++;
-  if (bgIndex < backgrounds.length) {
+  if(bgIndex < backgrounds.length){
     document.body.style.backgroundImage = `url("${backgrounds[bgIndex]}")`;
   } else {
     finalText.classList.remove("hidden");
     confirmBtn.classList.remove("hidden");
-    setTimeout(() => finalText.classList.add("show"), 150);
-    nextBtn.style.display = "none";
+    finalText.classList.add("show");
+    nextBtn.style.display="none";
   }
 });
 
-/* =====================================================
-   CONFIRMACIÓN WHATSAPP
-===================================================== */
-confirmBtn.addEventListener("click", (e) => {
+/* 📲 WHATSAPP */
+confirmBtn.addEventListener("click",(e)=>{
   e.stopPropagation();
   window.open(
-    "https://ccgvcastro.my.canva.site/danixa-ernesto"
+    "https://wa.me/56912345678?text=Confirmo%20mi%20asistencia%20al%20matrimonio%20de%20Ernesto%20y%20Danixa%20💍",
+    "_blank"
   );
 });
 
-/* =====================================================
-   CONTADOR REGRESIVO
-===================================================== */
+/* ⏳ CONTADOR */
 const weddingDate = new Date("2026-02-28T00:00:00").getTime();
-
-setInterval(() => {
-  const now = Date.now();
-  const diff = weddingDate - now;
-  if (diff < 0) return;
-
-  days.textContent = Math.floor(diff / 86400000);
-  hours.textContent = Math.floor((diff / 3600000) % 24);
-  minutes.textContent = Math.floor((diff / 60000) % 60);
-  seconds.textContent = Math.floor((diff / 1000) % 60);
-}, 1000);
+setInterval(()=>{
+  const d = weddingDate - Date.now();
+  if(d<0) return;
+  days.textContent = Math.floor(d/86400000);
+  hours.textContent = Math.floor(d/3600000%24);
+  minutes.textContent = Math.floor(d/60000%60);
+  seconds.textContent = Math.floor(d/1000%60);
+},1000);
